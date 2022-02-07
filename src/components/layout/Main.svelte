@@ -2,7 +2,6 @@
 	import { onMount } from "svelte";
 	import { fromLonLat } from "ol/proj";
 	import Map from "ol/Map";
-	import Colorize from "ol-ext/filter/Colorize";
 	import OSM from "ol/source/OSM";
 	import TileLayer from "ol/layer/Tile";
 	import View from "ol/View";
@@ -13,13 +12,13 @@
 		const tileLayer = new TileLayer({
 			source: new OSM()
 		});
-		tileLayer.addFilter(
-			new Colorize({
-				operation: "luminosity",
-				value: 0.45
-			})
-		);
-		tileLayer.addFilter(new Colorize({ operation: "contrast", value: 0 }));
+		// tileLayer.addFilter(
+		// 	new Colorize({
+		// 		operation: "luminosity",
+		// 		value: 0.45
+		// 	})
+		// );
+		// tileLayer.addFilter(new Colorize({ operation: "contrast", value: 0 }));
 
 		new Map({
 			layers: [tileLayer],
