@@ -1,29 +1,32 @@
 <script lang="ts">
+	import hotkeys from "hotkeys-js";
+	import { onMount } from "svelte";
 	import { mdiCursorDefault } from "@mdi/js";
 	import { mdiChartTimelineVariant } from "@mdi/js";
 
 	import BtnIcon from "../BtnIcon.svelte";
-	import { TOOLS } from "../../utils/tools.enum";
+	import { TOOLS } from "../../types/tools.enum";
+	import { tool } from "../../stores/tool.store";
+	import { HOTKEYS } from "../../types/hotkeys.enum";
 
-	let tool = TOOLS.MOVE;
-
-	function setTool(newTool: TOOLS) {
-		tool = newTool;
-	}
+	onMount(() => {
+		hotkeys(HOTKEYS.MOVE, () => tool.set(TOOLS.MOVE));
+		hotkeys(HOTKEYS.DRAW_LINE, () => tool.set(TOOLS.DRAW_LINE));
+	});
 </script>
 
 <div id="traveler-sidebar">
 	<BtnIcon
 		icon={mdiCursorDefault}
-		title="Move [M]"
-		active={tool == TOOLS.MOVE}
-		on:click={() => setTool(TOOLS.MOVE)}
+		title="Move [{HOTKEYS.MOVE.toUpperCase()}]"
+		active={$tool == TOOLS.MOVE}
+		on:click={() => tool.set(TOOLS.MOVE)}
 	/>
 	<BtnIcon
 		icon={mdiChartTimelineVariant}
-		title="Draw Line [L]"
-		active={tool == TOOLS.DRAW_LINE}
-		on:click={() => setTool(TOOLS.DRAW_LINE)}
+		title="Draw Line [{HOTKEYS.DRAW_LINE.toUpperCase()}]"
+		active={$tool == TOOLS.DRAW_LINE}
+		on:click={() => tool.set(TOOLS.DRAW_LINE)}
 	/>
 </div>
 

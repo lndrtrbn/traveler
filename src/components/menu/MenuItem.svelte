@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { MenuItemType } from "src/types/MenuItem.type";
+	import type { MenuItemType } from "src/types/menuItem.type";
 	import { clickOutside } from "../../utils/clickOutside";
 
 	export let item: MenuItemType;
