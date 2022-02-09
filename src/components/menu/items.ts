@@ -15,6 +15,16 @@ export const ITEMS: MenuItemType[] = [
 		]
 	},
 	{
-		title: "Edit"
+		title: "Edit",
+		subitems: [
+			{
+				title: "Undo",
+				extra: "Ctrl+Z"
+			},
+			{
+				title: "Redo",
+				extra: "Ctrl+Y"
+			}
+		]
 	}
 ];

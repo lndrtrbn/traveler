@@ -5,8 +5,8 @@
 	import { getContext } from "svelte";
 
 	import { olKey } from "./olKey";
-	import { drawFromTool } from "./interaction";
 	import { tool } from "../../stores/tool.store";
+	import { createDrawFromTool } from "./interaction";
 	import type { MapContext } from "../../types/mapContext.type";
 
 	const { getMap } = getContext<MapContext>(olKey);
@@ -23,7 +23,7 @@
 		if (draw) {
 			map.removeInteraction(draw);
 		}
-		draw = drawFromTool(val, source);
+		draw = createDrawFromTool(val, source);
 		if (draw) {
 			map.addInteraction(draw);
 		}

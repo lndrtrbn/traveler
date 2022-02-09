@@ -4,7 +4,7 @@ import type VectorSource from "ol/source/Vector";
 
 import { TOOLS } from "../../types/tools.enum";
 
-export function drawFromTool(
+export function createDrawFromTool(
 	tool: TOOLS,
 	source: VectorSource<Geometry>
 ): Draw {
