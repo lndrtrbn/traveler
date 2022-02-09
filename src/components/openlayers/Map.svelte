@@ -1,33 +1,29 @@
 <script lang="ts">
 	import Map from "ol/Map";
 	import View from "ol/View";
-	import OSM from "ol/source/OSM";
-	import TileLayer from "ol/layer/Tile";
 	import { fromLonLat } from "ol/proj";
 	import { onMount, setContext } from "svelte";
+
+	import { olKey } from "./olKey";
+	import type { MapContext } from "../../types/mapContext.type";
 
 	import "ol/ol.css";
 
 	let map: Map;
 
-	const olKey = Symbol();
-	setContext(olKey, {
+	setContext<MapContext>(olKey, {
 		getMap: () => map
 	});
 
 	onMount(() => {
-		const osmTile = new TileLayer({
-			source: new OSM()
-		});
 		const bzhView = new View({
 			center: fromLonLat([-2.49, 48.11]),
 			zoom: 8
 		});
-
-		new Map({
-			layers: [osmTile],
-			target: "ol-container",
+		map = new Map({
+			layers: [],
 			controls: [],
+			target: "ol-container",
 			view: bzhView
 		});
 	});

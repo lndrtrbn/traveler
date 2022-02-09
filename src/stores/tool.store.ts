@@ -7,7 +7,7 @@ function createTool() {
 
 	return {
 		subscribe,
-		set: (t: TOOLS) => update((tool) => (tool === t ? undefined : t)),
+		set: (t: TOOLS) => update((tool) => (tool === t ? TOOLS.MOVE : t)),
 		reset: () => set(TOOLS.MOVE)
 	};
 }

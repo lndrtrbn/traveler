@@ -1,6 +1,7 @@
 <script lang="ts">
 	import hotkeys from "hotkeys-js";
 	import { onMount } from "svelte";
+	import { mdiGesture } from "@mdi/js";
 	import { mdiCursorDefault } from "@mdi/js";
 	import { mdiChartTimelineVariant } from "@mdi/js";
 
@@ -12,6 +13,7 @@
 	onMount(() => {
 		hotkeys(HOTKEYS.MOVE, () => tool.set(TOOLS.MOVE));
 		hotkeys(HOTKEYS.DRAW_LINE, () => tool.set(TOOLS.DRAW_LINE));
+		hotkeys(HOTKEYS.FREE_DRAWING, () => tool.set(TOOLS.FREE_DRAWING));
 	});
 </script>
 
@@ -27,6 +29,12 @@
 		title="Draw Line [{HOTKEYS.DRAW_LINE.toUpperCase()}]"
 		active={$tool == TOOLS.DRAW_LINE}
 		on:click={() => tool.set(TOOLS.DRAW_LINE)}
+	/>
+	<BtnIcon
+		icon={mdiGesture}
+		title="Free drawing [{HOTKEYS.FREE_DRAWING.toUpperCase()}]"
+		active={$tool == TOOLS.FREE_DRAWING}
+		on:click={() => tool.set(TOOLS.FREE_DRAWING)}
 	/>
 </div>
 
