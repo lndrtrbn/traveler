@@ -1,3 +1,14 @@
+<script lang="ts">
+	import type { Map } from "ol";
+	import { setContext } from "svelte";
+	import { writable } from "svelte/store";
+
+	import { olKey } from "../openlayers/olKey";
+
+	let map = writable<Map>();
+	setContext(olKey, map);
+</script>
+
 <div id="traveler-layout">
 	<slot />
 </div>

@@ -8,3 +8,72 @@ body {
 	height: 100vh;
 	width: 100vw;
 }
+
+// Border
+
+.bd {
+	border: 1px solid var(--darkd);
+}
+.bdl {
+	border-left: 1px solid var(--darkd);
+}
+.bdr {
+	border-right: 1px solid var(--darkd);
+}
+.bdt {
+	border-top: 1px solid var(--darkd);
+}
+.bdb {
+	border-bottom: 1px solid var(--darkd);
+}
+
+// Background
+
+.bg {
+	background: var(--dark);
+}
+.bg-darkl {
+	background: var(--darkl);
+}
+.bg-darkd {
+	background: var(--darkd);
+}
+
+// Font
+
+.fs-sm {
+	font-size: 0.9em;
+}
+.fs-md {
+	font-size: 1em;
+}
+.fs-lg {
+	font-size: 1.2em;
+}
+
+.colored {
+	color: var(--green);
+}
+.light {
+	color: var(--light);
+}
+
+.fw-400 {
+	font-weight: 400;
+}
+.fw-500 {
+	font-weight: 500;
+}
+
+// Spacing
+
+.p {
+	padding: 4px 10px;
+}
+.p-8 {
+	padding: 8px 10px;
+}
+
+.m {
+	margin: 4px 10px;
+}

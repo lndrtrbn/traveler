@@ -1,14 +1,18 @@
 <script lang="ts">
 	import type BaseLayer from "ol/layer/Base";
-	import { getContext } from "svelte";
+	import type { Map } from "ol";
+	import type { Writable } from "svelte/store";
+	import { getContext, onDestroy } from "svelte";
 
 	import { olKey } from "./olKey";
-	import type { MapContext } from "../../types/mapContext.type";
 
-	const { getMap } = getContext<MapContext>(olKey);
-	const map = getMap();
+	const map = getContext<Writable<Map>>(olKey);
 
 	export let layer: BaseLayer;
 
-	map.addLayer(layer);
+	$map.addLayer(layer);
+
+	onDestroy(() => {
+		$map.removeLayer(layer);
+	});
 </script>

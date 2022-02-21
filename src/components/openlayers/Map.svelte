@@ -2,25 +2,21 @@
 	import Map from "ol/Map";
 	import View from "ol/View";
 	import { fromLonLat } from "ol/proj";
-	import { onMount, setContext } from "svelte";
+	import { getContext, onMount } from "svelte";
+	import type { Writable } from "svelte/store";
 
 	import { olKey } from "./olKey";
-	import type { MapContext } from "../../types/mapContext.type";
 
 	import "ol/ol.css";
 
-	let map: Map;
-
-	setContext<MapContext>(olKey, {
-		getMap: () => map
-	});
+	const map = getContext<Writable<Map>>(olKey);
 
 	onMount(() => {
 		const bzhView = new View({
 			center: fromLonLat([-2.49, 48.11]),
 			zoom: 8
 		});
-		map = new Map({
+		$map = new Map({
 			layers: [],
 			controls: [],
 			target: "ol-container",
@@ -30,7 +26,7 @@
 </script>
 
 <div id="ol-container">
-	{#if map}
+	{#if $map}
 		<slot />
 	{/if}
 </div>

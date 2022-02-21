@@ -6,12 +6,14 @@
 	export let size = 18;
 	export let title = "";
 	export let active = false;
+	export let small = false;
 </script>
 
 <button
 	class="btn-icon"
 	class:active
-	style="--size:{`${size + 10}px`}"
+	class:small
+	style="--size:{`${small ? size : size + 10}px`}"
 	on:click
 >
 	<Icon {icon} {color} {size} {title} />
@@ -33,12 +35,8 @@
 		border-radius: 2px;
 		border: 1px solid transparent;
 
-		&:hover,
 		&.active {
 			background-color: var(--dark);
-		}
-
-		&.active {
 			border-color: var(--darkd);
 		}
 	}
