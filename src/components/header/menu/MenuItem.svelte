@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { MenuItemType } from "src/types/menuItem.type";
-	import { clickOutside } from "../../utils/clickOutside";
+	import { clickOutside } from "../../../utils/clickOutside";
+	import type { MenuItemType } from "../../../types/menuItem.type";
 
 	export let item: MenuItemType;
 	export let opened = false;

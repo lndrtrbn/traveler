@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { mdiPlus } from "@mdi/js";
 
-	import Layer from "../Layer.svelte";
-	import BtnIcon from "../BtnIcon.svelte";
-	import { createDrawLayer } from "../openlayers/layers";
+	import Layer from "./Layer.svelte";
+	import BtnIcon from "../ui/BtnIcon.svelte";
+
+	import { createDrawLayer } from "../main/openlayers/layers";
 	import { activeLayer, layers } from "../../stores/layer.store";
 
 	function createLayer() {
@@ -14,7 +15,7 @@
 </script>
 
 <div id="traveler-aside" class="bg-darkl bdl">
-	<h3 class="header fw-400 fs-md bg bdb p">
+	<h3 class="header fw-400 fs-md bg bdb p-8">
 		<span>Drawing Layers</span>
 		<BtnIcon icon={mdiPlus} title="Add a layer" small on:click={createLayer} />
 	</h3>

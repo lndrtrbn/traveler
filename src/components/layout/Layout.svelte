@@ -3,7 +3,7 @@
 	import { setContext } from "svelte";
 	import { writable } from "svelte/store";
 
-	import { olKey } from "../openlayers/olKey";
+	import { olKey } from "../main/openlayers/olKey";
 
 	let map = writable<Map>();
 	setContext(olKey, map);

@@ -1,15 +1,17 @@
 <script lang="ts">
 	import hotkeys from "hotkeys-js";
+
 	import { onMount } from "svelte";
 	import { mdiGesture } from "@mdi/js";
 	import { mdiCursorDefault } from "@mdi/js";
 	import { mdiChartTimelineVariant } from "@mdi/js";
 
-	import BtnIcon from "../BtnIcon.svelte";
+	import BtnIcon from "../ui/BtnIcon.svelte";
+
 	import { TOOLS } from "../../types/tools.enum";
 	import { tool } from "../../stores/tool.store";
 	import { HOTKEYS } from "../../types/hotkeys.enum";
-	import { createDrawLayer } from "../openlayers/layers";
+	import { createDrawLayer } from "../main/openlayers/layers";
 	import { activeLayer, layers } from "../../stores/layer.store";
 
 	onMount(() => {
