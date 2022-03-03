@@ -1,13 +1,23 @@
 <script lang="ts">
-	import { mdiDelete } from "@mdi/js";
+	import {
+		mdiDelete,
+		mdiEye,
+		mdiEyeOff,
+		mdiArrowRightBold,
+		mdiArrowDownBold
+	} from "@mdi/js";
 
 	import BtnIcon from "../ui/BtnIcon.svelte";
+
+	import Feature from "./Feature.svelte";
 
 	import { tool } from "../../stores/tool.store";
 	import { activeLayer, layers } from "../../stores/layer.store";
 	import type { OLFeature, OLVectorLayer } from "src/types/openlayers.type";
 
 	export let layer: OLVectorLayer;
+
+	let expanded = true;
 
 	function setActive() {
 		activeLayer.set(layer);
@@ -22,8 +32,18 @@
 		layers.remove(layer);
 	}
 
-	function removeFeature(e: MouseEvent, feature: OLFeature) {
+	function toggleLayer(e: MouseEvent) {
 		e.stopPropagation();
+		layer.setVisible(!layer.getVisible());
+		layers.redraw();
+	}
+
+	function toggleExpanded(e: MouseEvent) {
+		e.stopPropagation();
+		expanded = !expanded;
+	}
+
+	function removeFeature(feature: OLFeature) {
 		layer.getSource().removeFeature(feature);
 		layers.redraw();
 	}
@@ -37,9 +57,23 @@
 			class:light={$activeLayer === layer}
 			on:click={setActive}
 		>
+			<BtnIcon
+				icon={expanded ? mdiArrowDownBold : mdiArrowRightBold}
+				title="Toggle features list"
+				small
+				on:click={toggleExpanded}
+			/>
+
 			<p class="fw-500">{layer.get("name")}</p>
 
 			<div class="actions">
+				<BtnIcon
+					icon={layer.getVisible() ? mdiEye : mdiEyeOff}
+					title="Toggle layer visibility"
+					small
+					on:click={toggleLayer}
+				/>
+
 				<BtnIcon
 					icon={mdiDelete}
 					title="Remove layer"
@@ -49,23 +83,14 @@
 			</div>
 		</div>
 	</div>
-	<div class="features">
-		{#each layer.getSource().getFeatures() as feature}
-			<div class="feature bdb p">
-				<p>{feature.get("name")}</p>
 
-				<div class="actions">
-					<BtnIcon
-						icon={mdiDelete}
-						title="Remove feature"
-						small
-						color="var(--lightd)"
-						on:click={(e) => removeFeature(e, feature)}
-					/>
-				</div>
-			</div>
-		{/each}
-	</div>
+	{#if expanded}
+		<div class="features">
+			{#each layer.getSource().getFeatures() as feature}
+				<Feature {feature} onDelete={removeFeature} />
+			{/each}
+		</div>
+	{/if}
 </div>
 
 <style lang="scss">
@@ -80,16 +105,11 @@
 
 		p {
 			flex: 1;
+			padding-left: 5px;
 		}
-	}
 
-	.feature {
-		background-color: var(--dark);
-		padding-left: 15px;
-		display: flex;
-
-		p {
-			flex: 1;
+		.actions {
+			display: flex;
 		}
 	}
 </style>
