@@ -1,41 +1,22 @@
 <script lang="ts">
-	import {
-		mdiDelete,
-		mdiEye,
-		mdiEyeOff,
-		mdiArrowRightBold,
-		mdiArrowDownBold
-	} from "@mdi/js";
-
-	import BtnIcon from "../ui/BtnIcon.svelte";
+	import { mdiArrowRightBold, mdiArrowDownBold } from "@mdi/js";
 
 	import Feature from "./Feature.svelte";
+	import BtnIcon from "../ui/BtnIcon.svelte";
+	import LayerActions from "./LayerActions.svelte";
+	import DiscreteInput from "./DiscreteInput.svelte";
 
-	import { tool } from "../../stores/tool.store";
 	import { activeLayer, layers } from "../../stores/layer.store";
-	import type { OLFeature, OLVectorLayer } from "src/types/openlayers.type";
+	import type {
+		OLFeature,
+		OLVectorLayer
+	} from "src/types/openlayers.type";
 
 	export let layer: OLVectorLayer;
-
 	let expanded = true;
 
 	function setActive() {
 		activeLayer.set(layer);
-	}
-
-	function removeLayer(e: MouseEvent) {
-		e.stopPropagation();
-		if ($activeLayer === layer) {
-			activeLayer.reset();
-			tool.reset();
-		}
-		layers.remove(layer);
-	}
-
-	function toggleLayer(e: MouseEvent) {
-		e.stopPropagation();
-		layer.setVisible(!layer.getVisible());
-		layers.redraw();
 	}
 
 	function toggleExpanded(e: MouseEvent) {
@@ -50,13 +31,15 @@
 </script>
 
 <div class="layer">
-	<div class="bdb">
-		<div
-			class="layer-info p-8"
+	<div class="bdb container">
+		<button
+			title="Set as active layer"
+			class="active-button"
 			class:active={$activeLayer === layer}
-			class:light={$activeLayer === layer}
 			on:click={setActive}
-		>
+		/>
+
+		<div class="layer-info p-8">
 			<BtnIcon
 				icon={expanded ? mdiArrowDownBold : mdiArrowRightBold}
 				title="Toggle features list"
@@ -64,23 +47,8 @@
 				on:click={toggleExpanded}
 			/>
 
-			<p class="fw-500">{layer.get("name")}</p>
-
-			<div class="actions">
-				<BtnIcon
-					icon={layer.getVisible() ? mdiEye : mdiEyeOff}
-					title="Toggle layer visibility"
-					small
-					on:click={toggleLayer}
-				/>
-
-				<BtnIcon
-					icon={mdiDelete}
-					title="Remove layer"
-					small
-					on:click={removeLayer}
-				/>
-			</div>
+			<DiscreteInput value={layer.get("name")} placeholder="(Layer)" />
+			<LayerActions {layer} />
 		</div>
 	</div>
 
@@ -94,22 +62,25 @@
 </div>
 
 <style lang="scss">
-	.layer-info {
+	.container {
 		display: flex;
-		border-left: 5px solid var(--light);
+		width: 100%;
+	}
+	.active-button {
+		width: 10px;
+		background-color: var(--light);
 		cursor: pointer;
+		border: 0;
+		padding: 0;
 
 		&.active {
-			border-left-color: var(--green);
+			background-color: var(--green);
 		}
+	}
 
-		p {
-			flex: 1;
-			padding-left: 5px;
-		}
-
-		.actions {
-			display: flex;
-		}
+	.layer-info {
+		display: flex;
+		align-items: center;
+		flex: 1;
 	}
 </style>

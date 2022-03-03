@@ -4,6 +4,7 @@
 	import { mdiDelete, mdiEye, mdiEyeOff } from "@mdi/js";
 
 	import BtnIcon from "../ui/BtnIcon.svelte";
+	import DiscreteInput from "./DiscreteInput.svelte";
 
 	import type { OLFeature } from "src/types/openlayers.type";
 
@@ -25,7 +26,7 @@
 </script>
 
 <div class="feature bdb p">
-	<p>{feature.get("name")}</p>
+	<DiscreteInput value={feature.get("name")} placeholder="(Feature)" />
 
 	<div class="actions">
 		<BtnIcon
@@ -48,7 +49,7 @@
 <style lang="scss">
 	.feature {
 		background-color: var(--dark);
-		padding-left: 15px;
+		padding-left: 20px;
 		display: flex;
 
 		p {
